@@ -1,0 +1,40 @@
+{
+  "name": "merge-partially",
+  "version": "0.0.1",
+  "description": "A convenience method for overwriting only the values you want",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
+  "repository": "https://github.com/dgreene1/typeSafeJestSpy.git",
+  "author": "Dan Greene",
+  "license": "GPL-3.0",
+  "files": [
+    "build/src/**/*"
+  ],
+  "scripts": {
+    "clean": "rimraf ./build && rimraf .tmp",
+    "build": "npm run clean && tsc && npm run lint",
+    "lint": "tslint \"**/*.ts\" --project .",
+    "test": "jest",
+    "pre-push": "npm run build && npm run test",
+    "prepare": "npm run pre-push"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run pre-push"
+    }
+  },
+  "devDependencies": {
+    "@types/clone-deep": "^4.0.1",
+    "@types/jest": "^23.3.10",
+    "husky": "^1.2.1",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.17.0",
+    "typescript": "^3.2.2",
+    "typescript-tslint-plugin": "^0.2.0"
+  },
+  "dependencies": {
+    "clone-deep": "^4.0.1"
+  }
+}

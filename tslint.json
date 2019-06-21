@@ -1,0 +1,61 @@
+{
+	"extends": [
+		"tslint:recommended",
+		"tslint-config-prettier"
+	],
+	"rules": {
+        "await-promise": true,
+        "adjacent-overload-signatures": true,
+        "curly": [true, "ignore-same-line"],
+        "interface-over-type-literal": false,
+        "no-floating-promises": true,
+        "no-unused-expression": false,
+        "max-classes-per-file": false,
+        "no-any": {
+            "severity": "warning"
+        },
+        "no-unsafe-any": {
+            "severity": "warning"
+        },
+        "member-access": true,
+        "member-ordering": false,
+        "no-empty-interface": true,
+        "no-internal-module": true,
+        "no-magic-numbers": {
+            "severity": "warning"
+        },
+        "no-empty": false,
+        "no-namespace": false,
+        "no-non-null-assertion": true,
+        "no-reference": true,
+        "no-unnecessary-type-assertion": true,
+        "no-var-requires": true,
+        "one-variable-per-declaration": false,
+        "only-arrow-functions": false,
+        "object-literal-shorthand": false,
+		"object-literal-sort-keys": false,
+        "ordered-imports": false,
+        "promise-function-async": true,
+        "no-bitwise": true,
+        "no-conditional-assignment": true,
+        "no-console": true,
+        "no-construct": true,
+        "no-dynamic-delete": true,
+        "no-var-keyword": true,
+        "no-invalid-template-strings": true,
+        "no-shadowed-variable": true,
+        "no-string-throw": true,
+        "no-switch-case-fall-through": true,
+        "no-unsafe-finally": true
+	},
+    "defaultSeverity": "error",
+    "linterOptions": {
+        "exclude": [
+            "node_modules/**",
+            "./**/*_spec.*",
+            "./**/*.spec.*",
+            "./**/*_test.*",
+            "./**/*.test.*"
+        ]
+    }
+}

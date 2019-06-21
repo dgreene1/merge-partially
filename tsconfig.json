@@ -1,0 +1,45 @@
+{
+    "compilerOptions": {
+      "allowJs": false,
+      "esModuleInterop":true,
+      "module": "commonjs",
+      "target": "es5",
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "noImplicitReturns": true,
+      "noFallthroughCasesInSwitch": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "strictPropertyInitialization": true,
+      "forceConsistentCasingInFileNames": true,
+      "alwaysStrict": true,
+      "strictFunctionTypes": false,
+      "strictNullChecks": true,
+      "sourceMap": true,
+      "declaration": true,
+      "outDir": "./build",
+      "rootDir": "./",
+      "lib": ["dom", "es2017"],
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "noEmitOnError": true,
+      "plugins": [
+        { "name": "typescript-tslint-plugin" }
+      ]
+    },
+    "compileOnSave": false,
+    "filesGlob": [
+      "./src/**/*.ts"
+    ],
+    "exclude": [
+      "coverage",
+      "node_modules",
+      "build",
+      "serverless",
+      ".webpack",
+      "ts-node**"
+    ],
+    "atom": {
+      "rewriteTsconfig": true
+    }
+}

@@ -15,6 +15,7 @@
     "build": "npm run clean && tsc && npm run lint",
     "lint": "tslint \"**/*.ts\" --project .",
     "test": "jest",
+    "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls",
     "pre-push": "npm run build && npm run test",
     "prepare": "npm run pre-push"
   },
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@types/clone-deep": "^4.0.1",
     "@types/jest": "^23.3.10",
+    "coveralls": "^3.0.4",
     "husky": "^1.2.1",
     "jest": "^23.6.0",
     "ts-jest": "^23.10.5",

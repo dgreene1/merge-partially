@@ -14,4 +14,4 @@ script:
 - ls
 - ps
 - yarn test
-- yarn coveralls
+- yarn prepare-badges

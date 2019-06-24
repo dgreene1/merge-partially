@@ -15,7 +15,7 @@
     "build": "npm run clean && tsc && npm run lint",
     "lint": "tslint \"**/*.ts\" --project .",
     "test": "jest",
-    "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls",
+    "prepare-badges": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "pre-commit": "npm run build && npm run test"
   },
   "husky": {

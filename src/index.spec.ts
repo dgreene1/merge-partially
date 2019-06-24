@@ -11,6 +11,7 @@ interface IObjWithANullProp {
 }
 
 describe('mergePartially', () => {
+
     it('should overwrite a number even a falsy number (i.e. 0)', () => {
         const original = {
             a: 'a',
@@ -88,6 +89,18 @@ describe('mergePartially', () => {
         // Prove that mergePartially is a pure function
         expect(original.b).toEqual('b');
     })
+
+    it('is a pure function (i.e. it always returns a copy of the default) even when there is no item passed to merge', ()=>{
+        let original = {
+            a: 'a',
+            b: 'b'
+        }
+
+        const result = mergePartially(original, undefined);
+
+        expect(original).toBe(original);
+        expect(original).not.toBe(result);
+    });
 
     it('should add a property that was not initially required', () => {
         const original: IObjWithOptionalProperty = {

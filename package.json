@@ -16,12 +16,11 @@
     "lint": "tslint \"**/*.ts\" --project .",
     "test": "jest",
     "coveralls": "jest --coverage && cat ./tests/coverage/lcov.info | coveralls",
-    "pre-push": "npm run build && npm run test",
-    "prepare": "npm run pre-push"
+    "pre-commit": "npm run build && npm run test"
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run pre-push"
+      "pre-commit": "npm run pre-commit"
     }
   },
   "devDependencies": {

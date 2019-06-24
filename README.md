@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/dgreene1/merge-partially/badge.svg?branch=master)](https://coveralls.io/github/dgreene1/merge-partially?branch=master)
+
 # merge-partially
 `mergePartially` is a convenience method for overwriting only the values you want
 

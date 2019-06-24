@@ -5,6 +5,11 @@ interface IObjWithOptionalProperty {
     optionalProp?: string;
 }
 
+interface IObjWithANullProp {
+    nonNullProp: number;
+    nullableProp: string | null;
+}
+
 describe('mergePartially', () => {
     it('should overwrite a number even a falsy number (i.e. 0)', () => {
         const original = {
@@ -49,6 +54,24 @@ describe('mergePartially', () => {
         expect(result.b).toEqual('');
         // Prove that mergePartially is a pure function
         expect(original.b).toEqual('b');
+    })
+
+    it('should allow users to set a value to null if that is something the original type allows', ()=>{
+        const original: IObjWithANullProp = {
+            nonNullProp: 3,
+            nullableProp: 'is not initialized as null'
+        }
+
+        const result = mergePartially(original, {
+            nonNullProp: 4,
+            nullableProp: null
+        })
+
+        expect(result.nonNullProp).toEqual(4),
+        expect(result.nullableProp).toEqual(null);
+        // Prove that mergePartially is a pure function
+        expect(original.nonNullProp).toEqual(3);
+        expect(original.nullableProp).toEqual('is not initialized as null');
     })
 
     it('should NOT overwrite a string if it is undefined', () => {

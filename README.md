@@ -7,7 +7,7 @@ Yes. Even though the examples are in TypeScript (since it helps to illustrate th
 
 ## Why would you want to use this:
 
-**tl;dr:** with `mergePartially` you can have less brittle tests but with all the flexibility you need.
+**tl;dr:** with `mergePartially` helps you fold objects together without overwriting the originals. You can have less brittle tests but with all the flexibility you need.
 
 There are many use cases, but I find this function to be most useful in testing scenarios.
 

@@ -4,7 +4,7 @@ module.exports = {
     },
     testEnvironment: "node",
     testRegex: ".*(_spec|.spec).*",
-    testPathIgnorePatterns: ["/lib/", "/build/", "/node_modules/"],
+    testPathIgnorePatterns: ["/node_modules/"],
     moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
     collectCoverage: true,
     collectCoverageFrom: [

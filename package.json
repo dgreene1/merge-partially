@@ -27,7 +27,7 @@
     "@types/clone-deep": "^4.0.1",
     "@types/jest": "^23.3.10",
     "coveralls": "^3.0.4",
-    "husky": "^1.2.1",
+    "husky": "^3.1.0",
     "jest": "^24.9.0",
     "ts-jest": "^24.2.0",
     "tslint": "^5.11.0",

@@ -1,6 +1,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/dgreene1/merge-partially/badge.svg?branch=master)](https://coveralls.io/github/dgreene1/merge-partially?branch=master)
 
 # merge-partially
+
 `mergePartially` is a convenience method for overwriting only the values you want
 
 ## I see lots of TypeScript stuff. Can I use this in JavaScript too?
@@ -17,19 +18,19 @@ There are many use cases, but I find this function to be most useful in testing 
 
 ```typescript
 interface IUser {
-    id: number;
-    firstName: string;
-    lastName: string;
-    age: number;
+  id: number;
+  firstName: string;
+  lastName: string;
+  age: number;
 }
 
 function makeFakeUser(): IUser {
-    return {
-        id: 1,
-        age: 42,
-        firstName: "John",
-        lastName: "Smith"
-    }
+  return {
+    id: 1,
+    age: 42,
+    firstName: 'John',
+    lastName: 'Smith',
+  };
 }
 ```
 
@@ -40,37 +41,49 @@ A more flexible approach is provide default values and allow the user to provide
 ### First, let's try to write the flexible factory function without mergePartially
 
 Ugh this is gonna be long...
+
 ```typescript
 function makeFakeUser(overrides?: Partial<IUser>): IUser {
-    const defaults = {
-        id: 1,
-        age: 42,
-        firstName: "John",
-        lastName: "Smith"
-    };
+  const defaults = {
+    id: 1,
+    age: 42,
+    firstName: 'John',
+    lastName: 'Smith',
+  };
 
-    const result = {
-        id: overrides && overrides.id !== undefined ? overrides.id : defaults.id,
-        age: overrides && overrides.age !== undefined ? overrides.age : defaults.age,
-        firstName: overrides && overrides.firstName !== undefined ? overrides.firstName : defaults.firstName,
-        lastName: overrides && overrides.lastName !== undefined ? overrides.lastName : defaults.lastName,
-    }
+  const result = {
+    id: overrides && overrides.id !== undefined ? overrides.id : defaults.id,
+    age:
+      overrides && overrides.age !== undefined ? overrides.age : defaults.age,
+    firstName:
+      overrides && overrides.firstName !== undefined
+        ? overrides.firstName
+        : defaults.firstName,
+    lastName:
+      overrides && overrides.lastName !== undefined
+        ? overrides.lastName
+        : defaults.lastName,
+  };
 
-    return result;
+  return result;
 }
 ```
 
 ### Now let's refactor using mergePartially
 
 Wow look how much fewer lines and characters we have to write to accomplish the same thing:
+
 ```typescript
 function makeFakeUser(overrides?: Partial<IUser>): IUser {
-    return mergePartially({
-        id: 1,
-        age: 42,
-        firstName: "John",
-        lastName: "Smith"
-    }, overrides);
+  return mergePartially(
+    {
+      id: 1,
+      age: 42,
+      firstName: 'John',
+      lastName: 'Smith',
+    },
+    overrides
+  );
 }
 ```
 

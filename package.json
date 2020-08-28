@@ -1,39 +1,44 @@
 {
-  "name": "merge-partially",
-  "version": "0.0.1",
+  "version": "0.1.0",
+  "license": "MIT",
   "description": "A convenience method for overwriting only the values you want",
-  "main": "build/src/index.js",
-  "types": "build/src/index.d.ts",
-  "repository": "https://github.com/dgreene1/typeSafeJestSpy.git",
-  "author": "Dan Greene",
-  "license": "GPL-3.0",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "files": [
-    "build/src/**/*"
+    "dist",
+    "src"
   ],
-  "scripts": {
-    "clean": "rimraf ./build && rimraf .tmp",
-    "build": "npm run clean && tsc && npm run lint",
-    "lint": "tslint \"**/*.ts\" --project .",
-    "test": "jest",
-    "prepare-badges": "jest --coverage && cat ./coverage/lcov.info | coveralls",
-    "pre-commit": "npm run build && npm run test"
+  "engines": {
+    "node": ">=10"
   },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "prepare-badges": "jest --coverage && cat ./coverage/lcov.info | coveralls"
+  },
+  "peerDependencies": {},
   "husky": {
     "hooks": {
-      "pre-commit": "npm run pre-commit"
+      "pre-commit": "npm run build && npm run test && tsdx lint"
     }
   },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "merge-partially",
+  "author": "Dan Greene",
+  "module": "dist/merge-partially.esm.js",
   "devDependencies": {
-    "@types/clone-deep": "^4.0.1",
-    "@types/jest": "^25.1.0",
-    "coveralls": "^3.0.4",
-    "husky": "^4.0.0",
-    "jest": "^25.1.0",
-    "ts-jest": "^25.0.0",
-    "tslint": "^6.0.0",
-    "tslint-config-prettier": "^1.17.0",
-    "typescript": "^3.2.2",
-    "typescript-tslint-plugin": "^0.5.5"
+    "husky": "^4.2.5",
+    "tsdx": "^0.13.3",
+    "tslib": "^2.0.1",
+    "typescript": "^4.0.2"
   },
   "dependencies": {
     "clone-deep": "^4.0.1"

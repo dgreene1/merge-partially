@@ -1,17 +1,17 @@
 sudo: false
 language: node_js
 node_js:
-- '10'
+  - '10'
 branches:
   only:
-  - master
+    - master
 before_install:
-- rm -rf node_modules
-- yarn upgrade
+  - rm -rf node_modules
+  - npm upgrade
 install:
-- yarn install
+  - npm install
 script:
-- ls
-- ps
-- yarn test
-- yarn prepare-badges
+  - ls
+  - ps
+  - npm run test
+  - npm run prepare-badges

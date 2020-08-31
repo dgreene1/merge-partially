@@ -40,3 +40,7 @@ jobs:
         run: npm run build
         env:
           CI: true
+      - name: Badge
+        run: npm run prepare-badges
+        env:
+          CI: true

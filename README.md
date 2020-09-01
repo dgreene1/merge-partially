@@ -89,4 +89,4 @@ function makeFakeUser(overrides?: Partial<IUser>): IUser {
 
 ## Examples
 
-See the unit tests for various examples
+See [the unit tests](https://github.com/dgreene1/merge-partially/blob/master/src/index.spec.ts) for various examples.

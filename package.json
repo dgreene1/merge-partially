@@ -19,6 +19,7 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
+    "test:coverage": "npm run test -- --coverage",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
     "prepare-badges": "jest --coverage && cat ./coverage/lcov.info | coveralls"
@@ -26,7 +27,7 @@
   "peerDependencies": {},
   "husky": {
     "hooks": {
-      "pre-commit": "npm run build && npm run test && tsdx lint"
+      "pre-commit": "npm run build && npm run test:coverage && tsdx lint"
     }
   },
   "prettier": {

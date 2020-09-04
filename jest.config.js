@@ -5,7 +5,7 @@ module.exports = {
   testEnvironment: 'node',
   testPathIgnorePatterns: ['/node_modules/'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  collectCoverage: false, // Don't run it during the test run (for speed reasons), but only during coveralls run: https://github.com/jest-community/vscode-jest/issues/370
+  collectCoverage: false, // Don't run it during the test run (for speed and debugging reasons), but only during coveralls run: https://github.com/jest-community/vscode-jest/issues/370
   collectCoverageFrom: [
     '**/*.{ts,tsx}',
     '!**/*_spec*',

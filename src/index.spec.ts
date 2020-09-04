@@ -89,6 +89,20 @@ describe('mergePartially', () => {
     expect(original.nullableProp).toEqual('is not initialized as null');
   });
 
+  it('should replace functions', () => {
+    const original = {
+      foo: () => 'response of foo',
+    };
+
+    const result = mergePartially(original, {
+      foo: () => `response of foo's replacement`,
+    });
+
+    expect(result.foo()).toEqual(`response of foo's replacement`);
+    // Prove that mergePartially is a pure function
+    expect(original.foo()).toEqual('response of foo');
+  });
+
   it('is a pure function (i.e. it always returns a copy of the default) even when there is no item passed to merge', () => {
     const original = {
       a: 'a',
@@ -116,7 +130,21 @@ describe('mergePartially', () => {
   });
 
   it('supports nested objects', () => {
-    const original = Object.freeze({
+    interface ITestCase {
+      a: string;
+      b: {
+        b1: string;
+        b2: string;
+        b3: {
+          b3a: string;
+          b3b: string;
+          b3c?: string;
+        };
+      };
+      c: string;
+    }
+
+    const original: ITestCase = {
       a: 'a',
       b: {
         b1: 'b1',
@@ -124,15 +152,17 @@ describe('mergePartially', () => {
         b3: {
           b3a: 'b3a',
           b3b: 'b3b',
+          b3c: undefined,
         },
       },
       c: 'c',
-    });
+    };
 
     const result = mergePartially(original, {
       b: {
         b2: 'new value for b2',
         b3: {
+          b3a: undefined,
           b3b: 'new value for b3b',
         },
       },
@@ -151,12 +181,14 @@ describe('mergePartially', () => {
     expect(result.b.b2).toEqual('new value for b2');
     // Prove that mergePartially is a pure function (at 2nd level)
     expect(original.b.b2).toEqual('b2');
-    // A 3rd level value that isn't overriden should stay the same
-    expect(result.b.b3.b3a).toEqual('b3a');
+    // A 3rd level value that was originally supplied should be replaced with undefined if it is overriden
+    expect(result.b.b3.b3a).toEqual(undefined);
     // A 3rd level value that is overriden should be updated
     expect(result.b.b3.b3b).toEqual('new value for b3b');
     // Prove that mergePartially is a pure function (at 3rd level)
     expect(original.b.b3.b3b).toEqual('b3b');
+    // A 3rd level value that isn't overriden should stay the same
+    expect(result.b.b3.b3c).toEqual(undefined);
   });
 
   it('should replace values even if they are optional', () => {

@@ -1,4 +1,4 @@
-import { mergePartially } from './index';
+import { mergePartially, NestedPartial } from './index';
 
 interface IObjWithOptionalProperty {
   requiredProp: string;
@@ -103,13 +103,13 @@ describe('mergePartially', () => {
     expect(original.foo()).toEqual('response of foo');
   });
 
-  it('is a pure function (i.e. it always returns a copy of the default) even when there is no item passed to merge', () => {
+  it('is a pure function (i.e. it always returns a copy of the default) even when the override has no values to merge', () => {
     const original = {
       a: 'a',
       b: 'b',
     };
 
-    const result = mergePartially(original, undefined);
+    const result = mergePartially(original, {});
 
     expect(original).toBe(original);
     expect(original).not.toBe(result);
@@ -158,7 +158,7 @@ describe('mergePartially', () => {
       c: 'c',
     };
 
-    const result = mergePartially(original, {
+    const override: NestedPartial<ITestCase> = {
       b: {
         b2: 'new value for b2',
         b3: {
@@ -167,7 +167,9 @@ describe('mergePartially', () => {
         },
       },
       c: 'new c',
-    });
+    };
+
+    const result = mergePartially(original, override);
 
     // A 1st level object that isn't overriden should stay the same
     expect(result.a).toEqual(original.a);

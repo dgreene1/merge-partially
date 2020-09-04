@@ -103,6 +103,17 @@ describe('mergePartially', () => {
     expect(original.foo()).toEqual('response of foo');
   });
 
+  it('is a pure function (i.e. it always returns a copy of the default) even when the override is not present (for convenience sake)', () => {
+    const original = {
+      a: 'a',
+      b: 'b',
+    };
+
+    const result = mergePartially(original, undefined);
+
+    expect(original).toBe(original);
+    expect(original).not.toBe(result);
+  });
   it('is a pure function (i.e. it always returns a copy of the default) even when the override has no values to merge', () => {
     const original = {
       a: 'a',

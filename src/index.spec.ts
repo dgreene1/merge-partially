@@ -346,4 +346,25 @@ describe('mergePartially', () => {
     const resultWithMorePropsEvenThoughTsIsHidingIt = result as any;
     expect(resultWithMorePropsEvenThoughTsIsHidingIt.c).toEqual('hi I am an excess property value');
   });
+
+  it('should error if resulting object no longer satisfies type requirements', () => {
+    interface IDeepObj {
+      a: string;
+      b?: {
+        b1: string;
+        b2: {
+          b2_1: string;
+          b2_2: string;
+        };
+      };
+    }
+
+    const original: IDeepObj = {
+      a: 'a',
+    };
+
+    expect(() => {
+      mergePartially(original, { b: { b2: { b2_1: 'b2_1' } } });
+    }).toThrow(TypeError);
+  });
 });

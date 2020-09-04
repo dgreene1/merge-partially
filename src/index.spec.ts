@@ -26,19 +26,34 @@ describe('mergePartially', () => {
     expect(original.b).toEqual(1);
   });
 
-  it('should NOT overwrite a number if it is falsy', () => {
-    const original = {
+  it('should not replace missing properties, but should replace present properties with falsy values', () => {
+    interface ITestCase {
+      a: string;
+      b?: number;
+      c: string | null;
+    }
+    const original: ITestCase = {
       a: 'a',
       b: 2,
+      c: 'c',
     };
 
     const result = mergePartially(original, {
       b: undefined,
+      c: null,
     });
 
-    expect(result.b).toEqual(2);
+    expect(result).toEqual({
+      a: 'a',
+      b: undefined,
+      c: null,
+    });
     // Prove that mergePartially is a pure function
-    expect(original.b).toEqual(2);
+    expect(original).toEqual({
+      a: 'a',
+      b: 2,
+      c: 'c',
+    });
   });
 
   it('should overwrite a string even a falsy string', () => {
@@ -74,21 +89,6 @@ describe('mergePartially', () => {
     expect(original.nullableProp).toEqual('is not initialized as null');
   });
 
-  it('should NOT overwrite a string if it is undefined', () => {
-    const original = {
-      a: 'a',
-      b: 'b',
-    };
-
-    const result = mergePartially(original, {
-      b: undefined,
-    });
-
-    expect(result.b).toEqual('b');
-    // Prove that mergePartially is a pure function
-    expect(original.b).toEqual('b');
-  });
-
   it('is a pure function (i.e. it always returns a copy of the default) even when there is no item passed to merge', () => {
     const original = {
       a: 'a',
@@ -116,25 +116,168 @@ describe('mergePartially', () => {
   });
 
   it('supports nested objects', () => {
-    const original = {
+    const original = Object.freeze({
       a: 'a',
       b: {
-        c: 'c',
+        b1: 'b1',
+        b2: 'b2',
+        b3: {
+          b3a: 'b3a',
+          b3b: 'b3b',
+        },
       },
+      c: 'c',
+    });
+
+    const result = mergePartially(original, {
+      b: {
+        b2: 'new value for b2',
+        b3: {
+          b3b: 'new value for b3b',
+        },
+      },
+      c: 'new c',
+    });
+
+    // A 1st level object that isn't overriden should stay the same
+    expect(result.a).toEqual(original.a);
+    // A 1st level value that is overriden should be updated
+    expect(result.c).toEqual('new c');
+    // Prove that mergePartially is a pure function
+    expect(original.c).toEqual('c');
+    // A 2nd level value that isn't overriden should stay the same
+    expect(result.b.b1).toEqual('b1');
+    // A 2nd level value that is overriden should be updated
+    expect(result.b.b2).toEqual('new value for b2');
+    // Prove that mergePartially is a pure function (at 2nd level)
+    expect(original.b.b2).toEqual('b2');
+    // A 3rd level value that isn't overriden should stay the same
+    expect(result.b.b3.b3a).toEqual('b3a');
+    // A 3rd level value that is overriden should be updated
+    expect(result.b.b3.b3b).toEqual('new value for b3b');
+    // Prove that mergePartially is a pure function (at 3rd level)
+    expect(original.b.b3.b3b).toEqual('b3b');
+  });
+
+  it('should replace values even if they are optional', () => {
+    interface ITestCase {
+      a?: string;
+      b?: number;
+      c?: string[];
+      d?: {
+        d1?: number;
+        d2?: bigint;
+      };
+      e: {
+        e1?: number;
+        e2?: bigint;
+      };
+    }
+
+    const original: ITestCase = { e: {} };
+
+    const result = mergePartially(original, {
+      a: 'replacement for a',
+      b: 2,
+      c: ['c1', 'c2'],
+      d: {
+        d1: 1,
+        d2: BigInt(100000000000000),
+      },
+      e: {
+        e1: 1,
+        e2: BigInt(100000000000000),
+      },
+    });
+
+    // Assert
+    expect(result).toMatchObject({
+      a: 'replacement for a',
+      b: 2,
+      c: ['c1', 'c2'],
+      d: {
+        d1: 1,
+        d2: BigInt(100000000000000),
+      },
+      e: {
+        e1: 1,
+        e2: BigInt(100000000000000),
+      },
+    });
+    // Ensure the function is pure
+    expect(original).toEqual({
+      e: {},
+    });
+  });
+
+  it('by default replaces objects wholesale (i.e. does not merge or append)', () => {
+    interface ITestCase {
+      a: string;
+      b: string[];
+      c: string[];
+      d: {
+        name: string;
+      }[];
+      e?: number[];
+      f: number[];
+    }
+
+    const original: ITestCase = {
+      a: 'a',
+      b: ['b1', 'b2'],
+      c: ['c1', 'c2'],
+      d: [
+        {
+          name: 'nestedObject1',
+        },
+        {
+          name: 'nestedObject2',
+        },
+      ],
+      f: [1, 2],
     };
 
     const result = mergePartially(original, {
-      b: mergePartially(original.b, {
-        c: 'newC',
-      }),
+      b: ['b1 replacement'],
+      d: [
+        {
+          name: 'nestedObject1 replacement',
+        },
+      ],
+      e: [9, 9, 9, 9],
     });
 
-    expect(result.b.c).toEqual('newC');
-    // Prove that mergePartially is a pure function
-    expect(original.b.c).toEqual('c');
+    // Assert
+    expect(result).toEqual({
+      a: 'a',
+      b: ['b1 replacement'],
+      c: ['c1', 'c2'],
+      d: [
+        {
+          name: 'nestedObject1 replacement',
+        },
+      ],
+      e: [9, 9, 9, 9],
+      f: [1, 2],
+    });
+    // Ensure the function is pure
+    expect(original).toEqual({
+      a: 'a',
+      b: ['b1', 'b2'],
+      c: ['c1', 'c2'],
+      d: [
+        {
+          name: 'nestedObject1',
+        },
+        {
+          name: 'nestedObject2',
+        },
+      ],
+      f: [1, 2],
+    });
   });
 
-  it('(CAVEAT) this unfortunately allows excess properties to be passed onward', () => {
+  it('(CAVEAT) like all TypeScript functions, it unfortunately allows excess properties to be passed onward unless they are explicity or inline', () => {
     const original = {
       a: 'a',
       b: 'b',
@@ -156,8 +299,6 @@ describe('mergePartially', () => {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const resultWithMorePropsEvenThoughTsIsHidingIt = result as any;
-    expect(resultWithMorePropsEvenThoughTsIsHidingIt.c).toEqual(
-      'hi I am an excess property value'
-    );
+    expect(resultWithMorePropsEvenThoughTsIsHidingIt.c).toEqual('hi I am an excess property value');
   });
 });

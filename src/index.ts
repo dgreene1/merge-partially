@@ -74,7 +74,7 @@ const determineNewValue = (input: {
 export const mergePartially = <T1 extends object, T2 extends DeepPartial<T1>>(seed: T1, override: T2): T1 => {
   const seedCopy = deepClone(seed);
 
-  // Lie #1 - the object and it's override are objects with iterable keys.
+  // Lie #1 - the object and it's override are objects with iterable keys. More information here: https://github.com/microsoft/TypeScript/issues/35859#issuecomment-687323281
   const seedRecord = seedCopy as ARecordOfAllPossible;
   const overrideRecord = override as ARecordOfAllPossible;
 

@@ -4,6 +4,10 @@
   "description": "A convenience method for overwriting only the values you want",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dgreene1/merge-partially.git"
+  },
   "files": [
     "dist",
     "src"
@@ -15,6 +19,7 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
+    "test:coverage": "npm run test -- --coverage",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
     "prepare-badges": "jest --coverage && cat ./coverage/lcov.info | coveralls"
@@ -22,11 +27,11 @@
   "peerDependencies": {},
   "husky": {
     "hooks": {
-      "pre-commit": "npm run build && npm run test && tsdx lint"
+      "pre-commit": "npm run build && npm run test:coverage && tsdx lint"
     }
   },
   "prettier": {
-    "printWidth": 80,
+    "printWidth": 120,
     "semi": true,
     "singleQuote": true,
     "trailingComma": "es5"
@@ -43,6 +48,7 @@
     "typescript": "^4.0.2"
   },
   "dependencies": {
-    "clone-deep": "^4.0.1"
+    "clone-deep": "^4.0.1",
+    "utility-types": "^3.10.0"
   }
 }

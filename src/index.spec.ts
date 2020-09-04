@@ -1,4 +1,4 @@
-import { mergePartially } from './index';
+import { mergePartially, NestedPartial } from './index';
 
 interface IObjWithOptionalProperty {
   requiredProp: string;
@@ -158,7 +158,7 @@ describe('mergePartially', () => {
       c: 'c',
     };
 
-    const result = mergePartially(original, {
+    const override: NestedPartial<ITestCase> = {
       b: {
         b2: 'new value for b2',
         b3: {
@@ -167,7 +167,9 @@ describe('mergePartially', () => {
         },
       },
       c: 'new c',
-    });
+    };
+
+    const result = mergePartially(original, override);
 
     // A 1st level object that isn't overriden should stay the same
     expect(result.a).toEqual(original.a);

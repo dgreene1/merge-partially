@@ -2,6 +2,8 @@ import deepClone from 'clone-deep';
 import { DeepPartial } from 'utility-types';
 import { assertNever } from './helpers/assertIs';
 
+export type NestedPartial<T> = DeepPartial<T>;
+
 interface KVP<K extends Indexable, V> {
   key: K;
   value: V;

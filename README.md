@@ -53,16 +53,9 @@ function makeFakeUser(overrides?: Partial<IUser>): IUser {
 
   const result = {
     id: overrides && overrides.id !== undefined ? overrides.id : defaults.id,
-    age:
-      overrides && overrides.age !== undefined ? overrides.age : defaults.age,
-    firstName:
-      overrides && overrides.firstName !== undefined
-        ? overrides.firstName
-        : defaults.firstName,
-    lastName:
-      overrides && overrides.lastName !== undefined
-        ? overrides.lastName
-        : defaults.lastName,
+    age: overrides && overrides.age !== undefined ? overrides.age : defaults.age,
+    firstName: overrides && overrides.firstName !== undefined ? overrides.firstName : defaults.firstName,
+    lastName: overrides && overrides.lastName !== undefined ? overrides.lastName : defaults.lastName,
   };
 
   return result;
@@ -74,7 +67,9 @@ function makeFakeUser(overrides?: Partial<IUser>): IUser {
 Wow look how much fewer lines and characters we have to write to accomplish the same thing:
 
 ```typescript
-function makeFakeUser(overrides?: Partial<IUser>): IUser {
+import { mergePartially, NestedPartial } from 'merge-partially';
+
+function makeFakeUser(overrides?: NestedPartial<IUser>): IUser {
   return mergePartially(
     {
       id: 1,

@@ -71,11 +71,8 @@ const determineNewValue = (input: {
  * @param seed the object that is used establish the start of what you want the result to look like. This is the object that will be overriden before a result is produced
  * @param override the data that will be used when replacing the seed's key/values
  */
-export const mergePartially = <T extends object>(seed: T, override: DeepPartial<T> | undefined): T => {
+export const mergePartially = <T1 extends object, T2 extends DeepPartial<T1>>(seed: T1, override: T2): T1 => {
   const seedCopy = deepClone(seed);
-  if (!override) {
-    return seedCopy;
-  }
 
   // Lie #1 - the object and it's override are objects with iterable keys.
   const seedRecord = seedCopy as ARecordOfAllPossible;

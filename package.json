@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "A convenience method for overwriting only the values you want",
   "main": "dist/index.js",

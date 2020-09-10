@@ -26,6 +26,21 @@ describe('mergePartially', () => {
     expect(original.b).toEqual(1);
   });
 
+  it('should overwrite a boolean even a falsy (i.e. false)', () => {
+    const original = {
+      a: 'a',
+      b: true,
+    };
+
+    const result = mergePartially(original, {
+      b: false,
+    });
+
+    expect(result.b).toEqual(false);
+    // Prove that mergePartially is a pure function
+    expect(original.b).toEqual(true);
+  });
+
   it('should not replace missing properties, but should replace present properties with falsy values', () => {
     interface ITestCase {
       a: string;

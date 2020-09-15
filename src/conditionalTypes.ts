@@ -12,19 +12,6 @@ export type NestedPartialWarningStr = 'mergePartially.deep does not allow a seed
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type truthyNonCurlies = number | Date | string | symbol | Set<any> | any[] | (() => any) | null | undefined;
 
-interface IDeepObj {
-  userName: string;
-  preferences?: {
-    lastUpdated: Date;
-    favoriteColor?: string;
-    backupContact?: string;
-  };
-}
-
-type test1 = NoNestedOptionalObjectsDeep<IDeepObj>;
-type test2 = SetDifference<ValueOf<IDeepObj>, truthyNonCurlies>;
-type test3 = OnlyOptionalValues<test2>;
-
 export type NoNestedOptionalObjectsDeep<T> = OnlyOptionalValues<T> extends never
   ? NestedPartialProblemPreventer<T>
   : NestedPartialWarningStr;

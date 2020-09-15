@@ -16,8 +16,9 @@
     "node": ">=10"
   },
   "scripts": {
+    "update-toc": "markdown-toc -i README.md",
     "start": "tsdx watch",
-    "build": "tsdx build",
+    "build": "npm run update-toc && tsdx build",
     "test": "tsdx test",
     "test:coverage": "npm run test -- --coverage",
     "lint": "tsdx lint",
@@ -42,8 +43,11 @@
   "module": "dist/merge-partially.esm.js",
   "devDependencies": {
     "@types/clone-deep": "^4.0.1",
+    "@types/faker": "^5.1.0",
     "coveralls": "^3.1.0",
+    "faker": "^5.1.0",
     "husky": "^4.2.5",
+    "markdown-toc": "^1.2.0",
     "np": "^6.5.0",
     "tsdx": "^0.13.3",
     "tslib": "^2.0.1",

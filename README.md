@@ -8,14 +8,16 @@
 
 - [Design Goals](#design-goals)
 - [Why would you want to use this:](#why-would-you-want-to-use-this)
-  - [First, let's try to write the flexible factory function without mergePartially](#first-lets-try-to-write-the-flexible-factory-function-without-mergepartially)
-  - [Now let's refactor using mergePartially](#now-lets-refactor-using-mergepartially)
+  * [First, let's try to write the flexible factory function without mergePartially](#first-lets-try-to-write-the-flexible-factory-function-without-mergepartially)
+  * [Now let's refactor using mergePartially](#now-lets-refactor-using-mergepartially)
 - [Examples](#examples)
 - [F.A.Q. / Troubleshooting](#faq--troubleshooting)
-  - [Why wouldn't I just use Object.assign or the spread operator?](#why-wouldnt-i-just-use-objectassign-or-the-spread-operator)
-  - [I see lots of TypeScript stuff. Can I use this in JavaScript too?](#i-see-lots-of-typescript-stuff-can-i-use-this-in-javascript-too)
-  - [What's the difference between .deep and .shallow?](#whats-the-difference-between-deep-and-shallow)
-  - [Why is `.shallow` even necessary?](#why-is-shallow-even-necessary)
+  * [Why wouldn't I just use Object.assign or the spread operator?](#why-wouldnt-i-just-use-objectassign-or-the-spread-operator)
+  * [I see lots of TypeScript stuff. Can I use this in JavaScript too?](#i-see-lots-of-typescript-stuff-can-i-use-this-in-javascript-too)
+  * [What's the difference between .deep and .shallow?](#whats-the-difference-between-deep-and-shallow)
+  * [Why is `.shallow` even necessary?](#why-is-shallow-even-necessary)
+  * [Why is my return type some strange error string?](#why-is-my-return-type-some-strange-error-string)
+- [Contributions](#contributions)
 
 <!-- tocstop -->
 

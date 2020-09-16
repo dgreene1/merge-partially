@@ -87,6 +87,7 @@ const mergePartiallyShallow = <T1 extends object>(seed: T1, override: Partial<T1
   if (!seed) {
     throw new TypeError(`seed must be provided and must not be null/undefined. It was ${typeof seed}`);
   }
+  // TODO: we can stop relying on runtime type checks if/when negated types are introduced: https://github.com/microsoft/TypeScript/pull/29317#issuecomment-692750988
   if (Array.isArray(seed)) {
     throw new TypeError('this function only supports non-array objects.');
   }

@@ -30,18 +30,23 @@ describe('mergePartially', () => {
     });
 
     it('should overwrite a boolean even a falsy (i.e. false)', () => {
-      const original = {
-        a: 'a',
-        b: true,
-      };
+      interface IHaveABoolAndStr {
+        a: string;
+        b: boolean;
+      }
 
-      const result = mergePartially.deep(original, {
-        b: false,
-      });
+      // Notice that.......... you can explicitly type the seed by passing in a <type> parameter
+      const result = mergePartially.deep<IHaveABoolAndStr>(
+        {
+          a: 'a',
+          b: true,
+        },
+        {
+          b: false,
+        }
+      );
 
       expect(result.b).toEqual(false);
-      // Prove that mergePartially is a pure function
-      expect(original.b).toEqual(true);
     });
 
     it('should not replace missing properties, but should replace present properties with falsy values', () => {

@@ -8,15 +8,15 @@
 
 - [Design Goals](#design-goals)
 - [Why would you want to use this:](#why-would-you-want-to-use-this)
-  * [First, let's try to write the flexible factory function without mergePartially](#first-lets-try-to-write-the-flexible-factory-function-without-mergepartially)
-  * [Now let's refactor using mergePartially](#now-lets-refactor-using-mergepartially)
+  - [First, let's try to write the flexible factory function without mergePartially](#first-lets-try-to-write-the-flexible-factory-function-without-mergepartially)
+  - [Now let's refactor using mergePartially](#now-lets-refactor-using-mergepartially)
 - [Examples](#examples)
 - [F.A.Q. / Troubleshooting](#faq--troubleshooting)
-  * [Why wouldn't I just use Object.assign or the spread operator?](#why-wouldnt-i-just-use-objectassign-or-the-spread-operator)
-  * [I see lots of TypeScript stuff. Can I use this in JavaScript too?](#i-see-lots-of-typescript-stuff-can-i-use-this-in-javascript-too)
-  * [What's the difference between .deep and .shallow?](#whats-the-difference-between-deep-and-shallow)
-  * [Why is `.shallow` even necessary?](#why-is-shallow-even-necessary)
-  * [Why is my return type some strange error string?](#why-is-my-return-type-some-strange-error-string)
+  - [Why wouldn't I just use Object.assign or the spread operator?](#why-wouldnt-i-just-use-objectassign-or-the-spread-operator)
+  - [I see lots of TypeScript stuff. Can I use this in JavaScript too?](#i-see-lots-of-typescript-stuff-can-i-use-this-in-javascript-too)
+  - [What's the difference between .deep and .shallow?](#whats-the-difference-between-deep-and-shallow)
+  - [Why is `.shallow` even necessary?](#why-is-shallow-even-necessary)
+  - [Why is my return type some strange error string?](#why-is-my-return-type-some-strange-error-string)
 - [Contributions](#contributions)
 
 <!-- tocstop -->
@@ -156,6 +156,10 @@ const shallowResult = mergePartially.shallow(seed, {
 ### Why is `.shallow` even necessary?
 
 There are some data types that are "less-compatible" with the library and therefore require a workaround ([click here for the description](https://github.com/dgreene1/merge-partially/blob/master/whyShallowInstead.md)). It should be rare that you need to use `.shallow`, but you might prefer `.shallow` over `.deep` anyway for explicitness.
+
+### Why am I getting some error about `never`?
+
+If you're seeing a Typescript error similar to `"Type 'number' is not assignable to type 'never'"` then you it's likely a case where you need to inform the function what the type is for your `seed` parameter. See [this thread](https://github.com/dgreene1/merge-partially/issues/100#issuecomment-694866025) for a detailed answer and a fun description in how TypeScript works.
 
 ### Why is my return type some strange error string?
 

@@ -122,9 +122,9 @@ const mergePartiallyShallow = <T1 extends object>(seed: T1, override: Partial<T1
  * @param seed the object that is used establish the start of what you want the result to look like. This is the object that will be overriden before a result is produced
  * @param override the data that will be used when replacing the seed's key/values
  */
-const mergePartiallyDeep = <T1 extends object, T2 extends NestedPartial<T1> | undefined = undefined>(
+const mergePartiallyDeep = <T1 extends object, T2 extends NestedPartial<T1> = NestedPartial<T1>>(
   seed: T1,
-  override: T2
+  override: T2 | undefined
 ): NoNestedOptionalObjectsDeep<T1> => {
   return mergePartiallyShallow(seed, override) as NoNestedOptionalObjectsDeep<T1>;
 };

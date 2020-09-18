@@ -10,7 +10,7 @@ type OnlyOptionalValues<T> = SetDifference<OptionalValues<T>, truthyNonCurlies>;
 export type NestedPartialWarningStr = 'mergePartially.deep does not allow a seed object to have values on it that are optional objects. Please use mergePartially.shallow instead. See https://github.com/dgreene1/merge-partially/blob/master/whyShallowInstead.md for more information.';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type truthyNonCurlies = number | Date | string | symbol | Set<any> | any[] | (() => any) | null | undefined;
+type truthyNonCurlies = number | boolean | Date | string | symbol | Set<any> | any[] | (() => any) | null | undefined;
 
 export type NoNestedOptionalObjectsDeep<T> = OnlyOptionalValues<T> extends never
   ? NestedPartialProblemPreventer<T>

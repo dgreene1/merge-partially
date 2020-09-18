@@ -159,6 +159,39 @@ describe('mergePartially', () => {
       expect(seed.optionalProp).toEqual(undefined);
     });
 
+    it('should override an optional date if provided, and leave un-overriden dates as-is', () => {
+      interface IObjWithDate {
+        aRequiredString: string;
+        aRequiredDate: Date;
+        aDate?: Date;
+      }
+      const seed: IObjWithDate = {
+        aRequiredString: 'hello',
+        aRequiredDate: new Date('2000-01-01'),
+      };
+
+      // Act
+      const result = mergePartially.deep(seed, {
+        aRequiredString: 'hello',
+        aDate: new Date('2020-09-17'),
+      });
+
+      // Assert
+      // First check that the dates haven't been stringified
+      expect(result.aDate).toBeInstanceOf(Date);
+      expect(result.aRequiredDate).toBeInstanceOf(Date);
+      expect(result).toEqual({
+        aDate: new Date('2020-09-17'),
+        aRequiredDate: new Date('2000-01-01'),
+        aRequiredString: 'hello',
+      });
+      // Prove that mergePartially is a pure function
+      expect(seed).toEqual({
+        aRequiredString: 'hello',
+        aRequiredDate: new Date('2000-01-01'),
+      });
+    });
+
     it('supports nested objects (automatically with mergePartially.deep)', () => {
       interface ITestCase {
         a: string;
@@ -169,6 +202,7 @@ describe('mergePartially', () => {
             b3a: string;
             b3b: string;
             b3c?: string;
+            b3d?: boolean;
           };
         };
         c: string;
@@ -194,6 +228,7 @@ describe('mergePartially', () => {
           b3: {
             b3a: undefined,
             b3b: 'new value for b3b',
+            b3d: false,
           },
         },
         c: 'new c',

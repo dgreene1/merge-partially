@@ -43,7 +43,7 @@
   "module": "dist/merge-partially.esm.js",
   "devDependencies": {
     "@types/clone-deep": "^4.0.1",
-    "@types/faker": "^5.1.0",
+    "@types/faker": "^6.6.9",
     "coveralls": "^3.1.0",
     "faker": "^5.1.0",
     "husky": "^6.0.0",
